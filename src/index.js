@@ -61,6 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
         height: boxHeight
       })
     })
+      .then(r => r.json())
+      .then(addedBox => {
+        console.log(addedBox)
+        renderSingleBox(addedBox)
+      })
   })
 //*************************** End of Add Box **************************//
 
