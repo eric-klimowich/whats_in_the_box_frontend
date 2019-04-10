@@ -19,10 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(allBoxes => {
       allBoxesArray = allBoxes
       console.log(allBoxesArray)
+      renderAllBoxes(allBoxesArray)
     })
 //*********************** End of Fetch All Boxes **********************//
 
-console.log(allBoxesArray)
+
 //*************************** New Box Form ****************************//
   newBoxFormContainer.innerHTML = `
     <form>
@@ -35,6 +36,21 @@ console.log(allBoxesArray)
   `
 //************************ End of New Box Form ************************//
 
+//**************************** Functions ******************************//
+  const renderAllBoxes = (allBoxesArray) => {
+    allBoxesArray.forEach((singleBox) => {
+      renderSingleBox(singleBox)
+    })
+  }
+
+  const renderSingleBox = (box) => {
+    boxesContainer.innerHTML += `
+      <p>${box.label}</p>
+    `
+  }
+//************************* End of Functions **************************//
 
 })
+
+
 //***************** End of Listen for DOMContentLoaded ****************//
