@@ -8,7 +8,7 @@ let allBoxesArray = []
 document.addEventListener('DOMContentLoaded', function() {
 
 //**************** Variables Local to DOMContentLoaded ****************//
-  const newBoxFormContainer = document.querySelector('#new-box-form-container')
+  const addBoxFormContainer = document.querySelector('#add-box-form-container')
   const boxesContainer = document.querySelector('#boxes-container')
 //************* End of Variables Local to DOMContentLoaded ************//
 
@@ -25,16 +25,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 //*************************** New Box Form ****************************//
-  newBoxFormContainer.innerHTML = `
-    <form>
-      <input type="text" placeholder="Box label..." />
-      <input type="number" placeholder="Box length..." />
-      <input type="number" placeholder="Box width..." />
-      <input type="number" placeholder="Box height..." />
+  addBoxFormContainer.innerHTML = `
+    <form id="add-box-form">
+      <input id="box-label" type="text" placeholder="Box label..." />
+      <input id="box-length" type="number" placeholder="Box length..." />
+      <input id="box-width" type="number" placeholder="Box width..." />
+      <input id="box-height" type="number" placeholder="Box height..." />
       <input type="submit" value="Submit" />
     </form>
   `
 //************************ End of New Box Form ************************//
+
+
+//****************************** Add Box ******************************//
+  addBoxFormContainer.addEventListener('submit', (event) => {
+    event.preventDefault()
+    // console.log(event.target)
+    let boxLabel = event.target.querySelector('#box-label').value
+    let boxLength = event.target.querySelector('#box-length').value
+    let boxWidth = event.target.querySelector('#box-width').value
+    let boxHeight = event.target.querySelector('#box-height').value
+    // console.log(boxLabel)
+    document.querySelector('#add-box-form').reset()
+
+    fetch(boxesUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        label: boxLabel,
+        length: boxLength,
+        width:  boxWidth,
+        height: boxHeight
+      })
+    })
+  })
+//*************************** End of Add Box **************************//
+
 
 //**************************** Functions ******************************//
   const renderAllBoxes = (allBoxesArray) => {
